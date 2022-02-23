@@ -1,5 +1,7 @@
 # Xilinx hw_server Docker Image
 
+![Setup](./docs/setup.png)
+
 ## Tested Vivado versions
 
 - [v2021.2](https://hub.docker.com/layers/stv0g/hw_server/v2021.2/images/sha256-f313302910f88244cee6593d2a6ffb542b74ff044484c445e83d978b45046cfd?context=explore)
