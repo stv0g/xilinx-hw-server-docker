@@ -11,7 +11,7 @@
 ## Usage
 
 ```bash
-docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev/bus/usb --publish 3121:3121 --detach stv0g/hw_server
+docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev/bus/usb --publish 3121:3121 --detach stv0g/hw_server:v2021.2
 ```
 
 ## Running on non x86_64 systems
@@ -28,7 +28,7 @@ sudo systemctl enable --now docker
 docker run --rm --privileged aptman/qus -s -- -p x86_64
 
 # Run the hw_server
-docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev/bus/usb --publish 3121:3121 --detach stv0g/hw_server
+docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev/bus/usb --publish 3121:3121 --detach stv0g/hw_server:v2021.2
 ```
 
 ## Building your own image
