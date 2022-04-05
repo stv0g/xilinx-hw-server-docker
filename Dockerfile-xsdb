@@ -1,0 +1,39 @@
+FROM ubuntu:20.04 AS installer
+
+ARG INSTALLER="Xilinx_Vivado_Lab_Lin_2021.2_1021_0703.tar.gz"
+
+RUN mkdir /xilinx
+WORKDIR /xilinx
+
+RUN uname -a
+
+ADD Xilinx_Vivado_Lab_Lin_2021.2_1021_0703.tar.gz /xilinx/
+
+RUN cd Xilinx_Vivado_* && \
+    ./xsetup \
+	--agree XilinxEULA,3rdPartyEULA \
+	--batch Install \
+	--edition "Vivado Lab Edition (Standalone)" \
+	--location /installed
+
+FROM ubuntu:20.04
+
+RUN echo /xilinx/lib/ >> /etc/ld.so.conf
+
+COPY --from=installer /installed/Vivado_Lab/2021.1/bin/unwrapped/lnx64.o/rdi_xsdb /xilinx/bin/
+COPY --from=installer /installed/Vivado_Lab/2021.2/lib/lnx64.o/libtcl8.5.so \
+                      /installed/Vivado_Lab/2021.2/lib/lnx64.o/libtcltcf.so /xilinx/lib/
+
+COPY --form=installer /installed/Vivado_Lab/2021.2/tps/tcl/tcl8.5 \
+                     /xilinx/tcl8.5
+
+COPY --form=installer /installed/Vivado_Lab/2021.2/tps/tcl/tcllib1.11.1 \
+                     /xilinx/tcllib1.11.1
+
+COPY --form=installer /installed/Vivado_Lab/2021.2/scripts/xsdb \
+                     /xilinx/xsdb-lib
+
+
+RUN ldconfig
+
+CMD ["TCL_LIBRARY='/xilinx/tcl8.5 /xilinx/tcllib1.11.1'" "TCLLIBPATH=/xilinx/xsdb-lib" "/xilinx/bin/xsdb"]
