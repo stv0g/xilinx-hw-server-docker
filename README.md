@@ -4,7 +4,7 @@
 
 ## Tested Vivado versions
 
-- [v2021.2](https://hub.docker.com/layers/stv0g/hw_server/v2021.2/images/sha256-f313302910f88244cee6593d2a6ffb542b74ff044484c445e83d978b45046cfd?context=explore)
+- [v2021.2](https://github.com/stv0g/xilinx-hw-server-docker/pkgs/container/hw_server/18536381?tag=v2021.2)
 
 ## Tested systems
 
@@ -13,7 +13,7 @@
 ## Usage
 
 ```bash
-docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev/bus/usb --publish 3121:3121 --detach stv0g/hw_server:v2021.2
+docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev/bus/usb --publish 3121:3121 --detach ghcr.io/stv0g/hw_server
 ```
 
 ## Running on non x86_64 systems
@@ -30,7 +30,7 @@ sudo systemctl enable --now docker
 docker run --rm --privileged aptman/qus -s -- -p x86_64
 
 # Run the hw_server
-docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev/bus/usb --publish 3121:3121 --detach stv0g/hw_server:v2021.2
+docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev/bus/usb --publish 3121:3121 --detach ghcr.io/stv0g/hw_server
 ```
 
 ## Building your own image
