@@ -1,4 +1,9 @@
-# Xilinx hw_server Docker Image
+# Xilinx hw_server & xsdb Docker Image
+
+This Docker image allows you to run Xilinx's `hw_server` as well as the Xilinx debugger `xsdb` in a Docker container.
+Using QEmu user-space emulation, these tools can also run on embedded devices like a Raspberry Pi or the Ultra-scale boards themself.
+
+- [Blog article with details](https://noteblok.net/2022/02/23/running-a-xilinx-hw_server-as-docker-container/)
 
 ![Setup](./docs/setup.png)
 
@@ -17,7 +22,6 @@ docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev
 ```
 
 ## Running on non x86_64 systems
-
 
 ```bash
 # Install docker
