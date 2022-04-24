@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  xilinx_hw_server:
+    restart: unless-stopped
+    privileged: true
+    image: "xilinx-hw_server-docker:2020.1"
+    volumes:
+      - "/dev/bus/usb:/dev/bus/usb"
+    ports:
+      - "3121:3121"
+    stdin_open: true
+    tty: true
+    command: ["/bin/bash"]
