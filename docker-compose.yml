@@ -3,7 +3,7 @@ services:
   xilinx_hw_server:
     restart: unless-stopped
     privileged: true
-    image: "xilinx-hw_server-docker:2020.1"
+    image: "ghcr.io/sstaehli/hw_server:2021.2"
     volumes:
       - "/dev/bus/usb:/dev/bus/usb"
     ports:

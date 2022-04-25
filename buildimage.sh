@@ -22,7 +22,7 @@ docker build --build-arg VIVADO_VERSION=${version} --build-arg VIVADO_TAR_FILE=$
 docker save xilinx-hw_server-docker:${version} > xhwsd.tar
 
 # copy image to raspberry pi
-scp xhwsd.tar user@ip:/home/user/
+#scp xhwsd.tar user@ip:/home/user/
 
 # on target -> load image
-ssh user@ip "docker load < xhwsd.tar"
+#ssh user@ip "docker load < xhwsd.tar"

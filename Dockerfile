@@ -11,7 +11,7 @@ ADD ${VIVADO_TAR_FILE} /xilinx/
 
 RUN cd $(basename ${VIVADO_TAR_FILE} .tar.gz) && \
     ./xsetup \
-	--agree XilinxEULA,3rdPartyEULA,WebTalkTerms \
+	--agree XilinxEULA,3rdPartyEULA \
 	--batch Install \
 	--edition "Vivado Lab Edition (Standalone)" \
 	--location /installed
