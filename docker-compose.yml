@@ -1,14 +1,11 @@
+---
 version: "3.9"
 services:
   xilinx_hw_server:
     restart: unless-stopped
     privileged: true
-    image: "ghcr.io/sstaehli/hw_server:2021.2"
+    image: "ghcr.io/stv0g/hw_server:2021.2"
     volumes:
-      - "/dev/bus/usb:/dev/bus/usb"
+    - "/dev/bus/usb:/dev/bus/usb"
     ports:
-      - "3121:3121"
-    # for debugging purposes
-    #stdin_open: true
-    #tty: true
-    #command: ["/bin/bash"]
+    - "3121:3121"
