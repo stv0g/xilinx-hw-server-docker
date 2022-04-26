@@ -73,11 +73,11 @@ The above steps in conjunction with the docker restart policy will make your hw_
 1. Download the _Vivado Lab Solutions_ Linux installer to the current directory.
    - **Do not extract it!**
    - E.g. `Xilinx_Vivado_Lab_Lin_2021.2_1021_0703.tar.gz`
-2. Build the image with the [buildimage.sh](buildimage.sh) script
+2. Build the image with the [build.sh](build.sh) script:
 
-```bash
-./buildimage.sh
-```
+   ```bash
+   ./build.sh
+   ```
 
 ### Note concerning Accept EULA
 
