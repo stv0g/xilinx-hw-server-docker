@@ -13,7 +13,7 @@ echo "Version is $version"
 
 # remove old image
 docker-compose stop && docker-compose rm -f
-docker image rm -f xilinx-hw_server-docker:${version}
+docker image rm -f ghcr.io/sstaehli/hw_server:${version}
 
 # create new image
 docker build --build-arg VIVADO_VERSION=${version} --build-arg VIVADO_TAR_FILE=${tarfile} -t xilinx-hw_server-docker:${version} --no-cache .
