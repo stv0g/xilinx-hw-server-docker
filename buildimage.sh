@@ -16,13 +16,7 @@ docker-compose stop && docker-compose rm -f
 docker image rm -f ghcr.io/sstaehli/hw_server:${version}
 
 # create new image
-docker build --build-arg VIVADO_VERSION=${version} --build-arg VIVADO_TAR_FILE=${tarfile} -t xilinx-hw_server-docker:${version} --no-cache .
+docker build --build-arg VIVADO_VERSION=${version} --build-arg VIVADO_TAR_FILE=${tarfile} -t ghcr.io/sstaehli/hw_server:${version} --no-cache .
 
-# save image in tar file
-docker save xilinx-hw_server-docker:${version} > xhwsd.tar
-
-# copy image to raspberry pi
-#scp xhwsd.tar user@ip:/home/user/
-
-# on target -> load image
-#ssh user@ip "docker load < xhwsd.tar"
+# copy docker-compose file to raspberry pi
+#scp docker-compose.yml user@ip:/home/user/
