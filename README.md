@@ -21,18 +21,23 @@ Using QEmu user-space emulation, these tools can also run on embedded devices li
 ### Docker
 
 ```bash
-docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev/bus/usb --publish 3121:3121 --detach ghcr.io/sst/hw_server:2021.2
+docker run \
+   --rm \
+   --restart unless-stopped \
+   --privileged \
+   --volume /dev/bus/usb:/dev/bus/usb \
+   --publish 3121:3121 \
+   --detach \
+   ghcr.io/stv0g/hw_server:2021.2
 ```
 
-### Docker-Compose
+### Docker-compose
 
-Copy the docker-compose.yml file from this repo to your target's working directory (Raspberry Pi -> `/home/user/`) and run
+Copy the `docker-compose.yml` file from this repo to your target's working directory and run the following command to start the container.
 
 ```bash
 docker-compose up -d
 ```
-
-to start the container
 
 ## Running on non x86_64 systems
 
@@ -61,12 +66,29 @@ docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev
 docker-compose up -d
 ```
 
-### Optional: An example how to permanently enable x86_64 Docker support
+### Optional: Enable QEmu userspace emulation at system startup
 
-- Create a Shellscript containing aptman/qus command, e. g. `echo "docker run --rm --privileged aptman/qus -s -- -p x86_64" > /usr/local/bin/docker_x86_x64.sh`
-- Register the shell script with `crontab -e` ... and add the line `@reboot sh /usr/local/bin/docker_x86_x64.sh`
-   
-The above steps in conjunction with the docker restart policy will make your hw_server start whenever your RaspberryPi is powered on.
+```bash
+cat > /etc/systemd/system/qus.service <<EOF
+[Unit]
+Description=Register QEmu Userspace Emulation
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=no
+ExecStart=/usr/bin/docker run --rm --privileged aptman/qus -s -- -p x86_64
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable --now qus
+```
+
+The above steps in conjunction with the docker restart policy will make your `hw_server` container start whenever your system is booted.
 
 ## Building your own image
 
