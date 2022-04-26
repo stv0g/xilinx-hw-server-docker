@@ -5,7 +5,8 @@ WORKDIR /xilinx
 
 RUN uname -a
 
-ARG VIVADO_TAR_FILE
+#ARG VIVADO_TAR_FILE="https://xilinx-ax-dl.entitlenow.com/dl/ul/2021/10/24/R210475998/Xilinx_Vivado_Lab_Lin_2021.2_1021_0703.tar.gz?hash=rNexgEuzUaPIfKXKr8mBYQ&expires=1645657031&filename=Xilinx_Vivado_Lab_Lin_2021.2_1021_0703.tar.gz"
+ARG VIVADO_TAR_FILE="Xilinx_Vivado_Lab_Lin_2021.2_1021_0703.tar.gz"
 
 ADD ${VIVADO_TAR_FILE} /xilinx/
 
@@ -18,7 +19,7 @@ RUN cd $(basename ${VIVADO_TAR_FILE} .tar.gz) && \
 
 FROM ubuntu:20.04
 
-ARG VIVADO_VERSION
+ARG VIVADO_VERSION="2021.2"
 
 RUN mkdir -p /xilinx/bin
 RUN mkdir -p /xilinx/lib
@@ -34,7 +35,7 @@ COPY --from=installer /installed/Vivado_Lab/${VIVADO_VERSION}/lib/lnx64.o/libxft
                      /installed/Vivado_Lab/${VIVADO_VERSION}/lib/lnx64.o/libdmgr.so.2 \
                      /installed/Vivado_Lab/${VIVADO_VERSION}/lib/lnx64.o/libusb-1.0.so.0 /xilinx/lib/
 
-# xsdb
+# XSDB
 COPY --from=installer /installed/Vivado_Lab/${VIVADO_VERSION}/bin/unwrapped/lnx64.o/rdi_xsdb /xilinx/bin/xsdb
 COPY --from=installer /installed/Vivado_Lab/${VIVADO_VERSION}/lib/lnx64.o/libtcl8.5.so \
                       /installed/Vivado_Lab/${VIVADO_VERSION}/lib/lnx64.o/libtcltcf.so /xilinx/lib/
@@ -48,15 +49,15 @@ COPY --from=installer /installed/Vivado_Lab/${VIVADO_VERSION}/tps/tcl/tcllib1.11
 COPY --from=installer /installed/Vivado_Lab/${VIVADO_VERSION}/scripts/xsdb \
                      /xilinx/xsdb-lib
 
-# digilent cable data
+# Digilent cable data
 COPY --from=installer /installed/Vivado_Lab/${VIVADO_VERSION}/data/xicom/cable_data/digilent/lnx64 \
                      /xilinx/digilent_cable
 
 RUN ldconfig
 
-ENV TCL_LIBRARY=/xilinx/tcl8.5
+ENV TCL_LIBRARY="/xilinx/tcl8.5"
 ENV TCLLIBPATH="/xilinx/xsdb-lib /xilinx/tcllib1.11.1"
-ENV DIGILENT_DATA_DIR=/xilinx/digilent_cable
+ENV DIGILENT_DATA_DIR="/xilinx/digilent_cable"
 
 ENV PATH="/xilinx/bin:${PATH}"
 
