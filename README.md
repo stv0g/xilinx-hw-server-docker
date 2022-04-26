@@ -26,7 +26,7 @@ docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev
 
 ### Docker-Compose
 
-Copy the docker-compose.yml file from this repo to your target's working directory (RasperryPi -> /home/user/) and run
+Copy the docker-compose.yml file from this repo to your target's working directory (Raspberry Pi -> `/home/user/`) and run
 
 ```bash
 docker-compose up -d
@@ -57,16 +57,16 @@ docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev
 
 # - OR -
 
-# Run the hw_server with docker-compose (copy the docker-compose.yml toyour working dir first)
+# Run the hw_server with docker-compose (copy the docker-compose.yml to your working dir first)
 docker-compose up -d
 ```
 
-### Optional: An exmple how to permanetly enable x86_64 docker support
+### Optional: An example how to permanently enable x86_64 Docker support
 
-- create a shellscript containing aptman/qus command, e. g. `echo "docker run --rm --privileged aptman/qus -s -- -p x86_64" > /usr/local/bin/docker_x86_x64.sh`
-- register the shell script with `crontab -e` ... and add the line `@reboot sh /usr/local/bin/docker_x86_x64.sh`
+- Create a Shellscript containing aptman/qus command, e. g. `echo "docker run --rm --privileged aptman/qus -s -- -p x86_64" > /usr/local/bin/docker_x86_x64.sh`
+- Register the shell script with `crontab -e` ... and add the line `@reboot sh /usr/local/bin/docker_x86_x64.sh`
    
-The above steps in conjunction with the docker resart policy will make your hw_server start whenever your RaspberryPi is powered on.
+The above steps in conjunction with the docker restart policy will make your hw_server start whenever your RaspberryPi is powered on.
 
 ## Building your own image
 
@@ -81,18 +81,20 @@ The above steps in conjunction with the docker resart policy will make your hw_s
 
 ### Note concerning Accept EULA
 
-Depending on the Vivado Version, you have to agree WebTalk (e. g. Version 2020.1) in the [Dockerfile](Dockerfile) or omit it (e. g. Version 2021.2). If this particular line does not match, Vivado Installation will fail!
+Depending on the Vivado version, you have to agree WebTalk (e. g. Version 2020.1) in the [Dockerfile](Dockerfile) or omit it (e. g. Version 2021.2). If this particular line does not match, Vivado installation will fail!
 
-For 2021.2 and future versions:
-```bash
-   ...
-	--agree XilinxEULA,3rdPartyEULA \
-   ...
-````
+#### For 2021.2 and future versions
 
-For 2020.1 and probably older versions:
 ```bash
-   ...
-	--agree XilinxEULA,3rdPartyEULA,WebTalkTerms \
-   ...
-````
+...
+--agree XilinxEULA,3rdPartyEULA \
+...
+```
+
+#### For 2020.1 and probably older versions
+
+```bash
+...
+--agree XilinxEULA,3rdPartyEULA,WebTalkTerms \
+...
+```
