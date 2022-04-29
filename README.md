@@ -71,12 +71,13 @@ docker-compose up -d
 ```bash
 cat > /etc/systemd/system/qus.service <<EOF
 [Unit]
-Description=Register QEmu Userspace Emulation
-After=docker.service
+Description=Start docker container for QEMU x86 emulation
 Requires=docker.service
+After=docker.service
 
 [Service]
-TimeoutStartSec=0
+Type=forking
+TimeoutStartSec=infinity
 Restart=no
 ExecStart=/usr/bin/docker run --rm --privileged aptman/qus -s -- -p x86_64
 
@@ -89,6 +90,32 @@ systemctl enable --now qus
 ```
 
 The above steps in conjunction with the docker restart policy will make your `hw_server` container start whenever your system is booted.
+
+If you want to let systemd manage the hw_server you can use also do the following
+
+```bash
+cat > /etc/systemd/system/hw_server.service <<EOF
+[Unit]
+Description=Starts xilinx hardware server
+After=docker-qemu-interpreter.service
+Requires=docker.service
+
+[Service]
+Type=forking
+PIDFile=/run/hw_server.pid
+TimeoutStartSec=infinity
+Restart=always
+ExecStart=/usr/bin/docker run --rm --name hw_server --privileged  --platform linux/amd64 --volume /dev/bus/usb:/dev/bus/usb --publish 3121:3121 --detach ghcr.io/stv0g/hw_server:v2021.2
+ExecStartPost=/bin/bash -c '/usr/bin/docker inspect -f '{{.State.Pid}}' hw_server | tee /run/hw_server.pid'
+ExecStop=/usr/bin/docker stop hw_server
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable --now hw_server
+```
 
 ## Building your own image
 
