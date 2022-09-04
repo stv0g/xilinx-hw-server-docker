@@ -1,4 +1,3 @@
----
 version: "3.9"
 services:
   xilinx_hw_server:
@@ -9,3 +8,12 @@ services:
     - "/dev/bus/usb:/dev/bus/usb"
     ports:
     - "3121:3121"
+    depends_on:
+    - quemu
+  quemu:
+    restart: unless-stopped
+    privileged: true
+    image: "aptman/qus"
+    command: -s -- -p x86_64
+
+

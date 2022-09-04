@@ -66,6 +66,8 @@ docker run --rm --restart unless-stopped --privileged --volume /dev/bus/usb:/dev
 docker-compose up -d
 ```
 
+The following steps are not necessary if u use docker-compose.
+
 ### Optional: Enable QEmu userspace emulation at system startup
 
 ```bash
