@@ -3,7 +3,7 @@ services:
   xilinx_hw_server:
     restart: unless-stopped
     privileged: true
-    image: "ghcr.io/stv0g/hw_server:2021.2"
+    image: "ghcr.io/stv0g/hw_server:v2021.2"
     volumes:
     - "/dev/bus/usb:/dev/bus/usb"
     ports:

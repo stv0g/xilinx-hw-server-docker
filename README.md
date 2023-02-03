@@ -28,7 +28,7 @@ docker run \
    --volume /dev/bus/usb:/dev/bus/usb \
    --publish 3121:3121 \
    --detach \
-   ghcr.io/stv0g/hw_server:2021.2
+   ghcr.io/stv0g/hw_server:v2021.2
 ```
 
 ### Docker-compose

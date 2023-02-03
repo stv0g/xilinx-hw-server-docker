@@ -16,5 +16,5 @@ echo "Version is ${VIVADO_VERSION}"
 docker build \
     --build-arg VIVADO_VERSION=${VIVADO_VERSION} \
     --build-arg VIVADO_TAR_FILE=${VIVADO_TAR_FILE} \
-    --tag ghcr.io/stv0g/hw_server:${VIVADO_VERSION} \
+    --tag ghcr.io/stv0g/hw_server:v${VIVADO_VERSION} \
     .
